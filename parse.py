@@ -6,6 +6,7 @@ soup = BeautifulSoup(response.text, 'html.parser')
 
 
 def main():
+    """main function"""
     ul_list = soup.find_all('ul', {'class': 'text'})
     needed_ul = ul_list[0]
     data = {}
