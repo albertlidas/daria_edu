@@ -17,7 +17,9 @@ def main():
     data = {}
     for li in needed_ul.find_all('li'):
         li = li.text.strip().split(':')
-        data[li[0]] = li[1]
+        key = li[0]
+        value = li[1].strip()
+        data[key] = value
         print(data)
         break
 
