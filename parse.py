@@ -8,7 +8,7 @@ soup = BeautifulSoup(response.text, 'html.parser')
 def main():
     """main function"""
     ul_list = soup.find_all('ul', {'class': 'text'})
-    needed_ul = ul_list[0]
+    needed_ul = ul_list[0]#new item
     data = {}
     for li in needed_ul.find_all('li'):
         li = li.text.strip().split(':')
