@@ -12,6 +12,7 @@ def get_ul_tag(html_soup):
 
 
 def main():
+    """main function"""
     needed_ul = get_ul_tag(soup)
     data = {}
     for li in needed_ul.find_all('li'):
