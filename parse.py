@@ -6,16 +6,15 @@ soup = BeautifulSoup(response.text, 'html.parser')
 
 
 def main():
-    """main function"""
     ul_list = soup.find_all('ul', {'class': 'text'})
-    needed_ul = ul_list[0]#new item
+    needed_ul = ul_list[0]
     data = {}
     for li in needed_ul.find_all('li'):
         li = li.text.strip().split(':')
-        data[li[0]] = li[1]
+        key = li[0]
+        value = li[1].strip()
+        data={key : value}
         print(data)
-        break
-
 
 if __name__ == '__main__':
     main()
