@@ -1,10 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
 
-class Product:
 
-    def __init__(self):
-        self.url = 'https://ultra-shop.com/men/odezhda/p/56578;0005_4ec180?product'
+class Product:
+    DEFAULT_URL = 'https://ultra-shop.com/men/odezhda/p/56578;0005_4ec180?product'
+
+    def __init__(self, url=None):
+        self.url = url if url else self.DEFAULT_URL
         self.html = self.get_html()
 
     def get_html(self):
@@ -16,17 +18,19 @@ class Product:
         soup = BeautifulSoup(self.html, 'html.parser')
         ul_list = soup.find_all('ul', class_='text')
         needed_ul = ul_list[0]
-        return ul_list
+        return needed_ul
 
-    def get_li(self):
-        needed_ul = get_ul(soup)
+    def get_data(self):
+        needed_ul = self.get_ul()
         data = {}
         for li in needed_ul.find_all('li'):
             li = li.text.strip().split(':')
             key = li[0]
             value = li[1].strip()
-            data = {key: value}
-            print(data)
+            data[key] = value
+        return data
 
-p=Product(get_li)
-print(p)
+
+if __name__ == '__main__':
+    data = Product().get_data()
+    print(data)
