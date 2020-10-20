@@ -1,6 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 
+from parse import soup
+
+
 class Product:
 
     def __init__(self):
@@ -16,17 +19,18 @@ class Product:
         soup = BeautifulSoup(self.html, 'html.parser')
         ul_list = soup.find_all('ul', class_='text')
         needed_ul = ul_list[0]
-        return ul_list
+        return needed_ul
 
     def get_li(self):
-        needed_ul = get_ul(soup)
+        needed_ul = self.get_ul()
         data = {}
         for li in needed_ul.find_all('li'):
             li = li.text.strip().split(':')
             key = li[0]
             value = li[1].strip()
-            data = {key: value}
-            print(data)
+            data[key] = value
+        print(data)
 
-p=Product(get_li)
+
+p = Product().get_li()
 print(p)
