@@ -34,5 +34,7 @@ p = Product().get_li()
 print(p)
 
 f = open('dict.xlsx', 'w')
-f.write(str(p))
+for c, l in p.items():
+    f.write(str(c) +'\t')
+    f.write(str(l) +'\n')
 f.close()
