@@ -32,3 +32,7 @@ class Product:
 
 p = Product().get_li()
 print(p)
+
+f = open('dict.xlsx', 'w')
+f.write(str(p))
+f.close()
