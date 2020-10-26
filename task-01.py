@@ -1,21 +1,10 @@
-import requests
-from bs4 import BeautifulSoup
+from common import BasicProductPageParser
 
 
-class Product:
-
-    def __init__(self):
-        self.url = 'https://ultra-shop.com/men/odezhda/p/56578;0005_4ec180?product'
-        self.html = self.get_html()
-
-    def get_html(self):
-        result = requests.get(self.url)
-        result.raise_for_status()
-        return result.text
+class Product(BasicProductPageParser):
 
     def get_ul(self):
-        soup = BeautifulSoup(self.html, 'html.parser')
-        ul_list = soup.find_all('ul', class_='text')
+        ul_list = self.soup.find_all('ul', class_='text')
         needed_ul = ul_list[0]
         return needed_ul
 

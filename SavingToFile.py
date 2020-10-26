@@ -33,8 +33,8 @@ class Product:
 p = Product().get_li()
 print(p)
 
-f = open('dict.xlsx', 'w')
+f = open('dict.txt', 'w')
 for c, l in p.items():
     f.write(str(c) +'\t')
-    f.write(str(l) +'\n')
+    f.write(str(l) + '\n')
 f.close()
