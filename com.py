@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 class BasicProductPage:
     URL = 'https://ultra-shop.com/men/odezhda'
 
+
     def __init__(self):
         self.url = self.URL
         self.html = self.get_html()

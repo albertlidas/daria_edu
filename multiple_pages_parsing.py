@@ -7,14 +7,14 @@ HEADER = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image
 
 
 def get_links():
-    productlinks = [URL]
+    product_links = [URL]
     for page in range(2, 41):
         pages_link = URL + '?page={}'.format(page)
-        productlinks.append(pages_link)
-    return productlinks
+        product_links.append(pages_link)
+    return product_links
 
 
-def get_p():
+def get_products():
     link_list = get_links()
     products = []
     for link in link_list:
@@ -32,5 +32,6 @@ def get_p():
             )
     return products
 
-res=get_p()
+
+res = get_products()
 print(res)
