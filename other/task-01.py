@@ -1,4 +1,4 @@
-from common import BasicProductPageParser
+from other.common import BasicProductPageParser
 
 
 class Product(BasicProductPageParser):
