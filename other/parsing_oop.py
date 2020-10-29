@@ -1,4 +1,4 @@
-from com import BasicProductPage
+from other.com import BasicProductPage
 
 
 class Product(BasicProductPage):
