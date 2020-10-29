@@ -1,18 +1,23 @@
-import os
-import time
-# 1. Файлы и каталоги, которые необходимо скопировать, собираются в список.
-source = ['"C:\\My Documents"', 'C:\\Code']
-# Заметьте, что для имён, содержащих пробелы, необходимо использовать
-# двойные кавычки внутри строки.
-# 2. Резервные копии должны храниться в основном каталоге резерва.
-target_dir = 'E:\\Backup' # Подставьте тот путь, который вы будете использовать.
-# 3. Файлы помещаются в zip-архив.
-# 4. Именем для zip-архива служит текущая дата и время.
-target = target_dir + os.sep + time.strftime('%Y%m%d%H%M%S') + '.zip'
-# 5. Используем команду "zip" для помещения файлов в zip-архив
-zip_command = "zip -qr {0} {1}".format(target, ' '.join(source))
-# Запускаем создание резервной копии
-if os.system(zip_command) == 0:
-print('Резервная копия успешно создана в', target)
-else:
-print('Создание резервной копии НЕ УДАЛОСЬ')
+from common import BasicProductPageParser
+
+
+class Product(BasicProductPageParser):
+
+    def get_ul(self):
+        ul_list = self.soup.find_all('ul', class_='text')
+        needed_ul = ul_list[0]
+        return needed_ul
+
+    def get_li(self):
+        needed_ul = self.get_ul()
+        data = {}
+        for li in needed_ul.find_all('li'):
+            li = li.text.strip().split(':')
+            key = li[0]
+            value = li[1].strip()
+            data[key] = value
+        return data
+
+
+p = Product().get_li()
+print(p)

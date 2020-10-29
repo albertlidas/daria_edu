@@ -10,6 +10,7 @@ def get_ul_tag(html_soup):
     needed_ul = ul_list[0]
     return needed_ul
 
+
 def main():
     needed_ul = get_ul_tag(soup)
     data = {}
@@ -17,8 +18,8 @@ def main():
         li = li.text.strip().split(':')
         key = li[0]
         value = li[1].strip()
-        data = {key:value}
-        print(data)
+        data[key] = value
+    print(data)
 
 
 if __name__ == '__main__':
