@@ -23,22 +23,18 @@ class CurrencyParser:
             currency_name = numbers.find('div', class_='gvrl-table-cell').find('img').get('alt')
             bid = numbers.find('div', class_='gvrl-table-cell bid').text.strip()
             ask = numbers.find('div', class_='gvrl-table-cell ask').text.strip()
-            for header in headers.find_all('div', class_='gvrl-table-row'):
-                cur_header = header.find_all('div', class_='gvrl-table-cell')[0].text.strip()
-                bid_header = header.find_all('div', class_='gvrl-table-cell')[1].text.strip()
-                ask_header = header.find_all('div', class_='gvrl-table-cell')[2].text.strip()
+            data[currency_name] = {
+                'Ask': ask,
+                'Bid': bid
+            }
 
-                data[cur_header] = currency_name
-                data[bid_header] = bid
-                data[ask_header] = ask
-
-            return data
+        return data
 
     def json_dump(self):
         json_data = json.dumps(self.get_data())
-        with open("data.json", "w") as file:
-            file.write(json_data)
+        with open("data.json", "w") as f:
+            f.write(json_data)
 
 
-res = CurrencyParser().json_dump()
+res = CurrencyParser().get_data()
 print(res)
