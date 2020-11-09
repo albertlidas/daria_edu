@@ -27,7 +27,7 @@ class EvaParser:
             for page_count in range(first_page, 51):
                 needed_url = page + '?p={}'.format(page_count)
                 next_url.append(needed_url)
-            return next_url
+        return next_url
 
     def get_all_product_urls(self):
         all_pages = self.get_subcat_product_urls()
@@ -60,3 +60,4 @@ class EvaParser:
 
 res = EvaParser().get_total()
 print(res)
+
