@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+{% block content %}
+
+        <div class="post">
+            <div class="date">
+
+            </div>
+            <h1><a href="">{{ title }}</a></h1>
+            <h2><a href="{% url 'post_detail' post.pk %}">{{ title }}</a></h2>
+            <p>{{ article }}</p>
+        </div>
+
+{% endblock %}

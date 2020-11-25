@@ -1,5 +1,5 @@
 from django.db import models
-#from django.utils import timezone
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 
@@ -12,12 +12,12 @@ class Author(models.Model):
 
 class Post (models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    pub_date = models.DateTimeField(auto_now_add=True)
-    title = models.CharField(max_length=35)
+    pub_date = models.DateTimeField#(auto_now_add=True)
+    title = models.TextField(max_length=35)
     article = models.TextField(max_length=1500, blank=True)
 
     def __str__(self):
-        return self.title
+        return self.title, str(timezone.datetime.now())
 
 
 class Comment(models.Model):
