@@ -1,6 +1,14 @@
 from django.db import models
-from django.utils import timezone
+#from django.utils import timezone
 from django.contrib.auth.models import User
+
+POST_CATEGORIES = [
+    ('Science', 'Science'),
+    ('Politics', 'Politics'),
+    ('Technics', 'Technics'),
+    ('History', 'History'),
+    ('Music', 'Music'),
+]
 
 
 class Author(models.Model):
@@ -10,21 +18,29 @@ class Author(models.Model):
         return str(self.user)
 
 
-class Post (models.Model):
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    pub_date = models.DateTimeField#(auto_now_add=True)
-    title = models.TextField(max_length=35)
-    article = models.TextField(max_length=1500, blank=True)
+class Category(models.Model):
+    cat_name = models.CharField(max_length=20, blank=False, null=False, choices=POST_CATEGORIES)
 
     def __str__(self):
-        return self.title, str(timezone.datetime.now())
+        return self.cat_name
+
+
+class Post (models.Model):
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    pub_date = models.DateTimeField(editable=True, auto_now_add=True, blank=True, null=True)
+    title = models.TextField(max_length=50)
+    article = models.TextField(max_length=1500, blank=True)
+    category = models.ForeignKey(Category, max_length=20, on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return '{} ({})'.format(self.title, self.category)
 
 
 class Comment(models.Model):
     username = models.ForeignKey(Author, on_delete=models.CASCADE)
-    pub_date = models.DateTimeField(auto_now_add=True)
+    pub_date = models.DateTimeField(auto_now_add=True, editable=True)
     comment_text = models.TextField(max_length=35, null=True)
     post_for_comment = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return ('{}' + ' : ' + '{}').format(self.username, self.comment_text[:20])
+        return '{} {}'.format(self.username, self.comment_text[:20])

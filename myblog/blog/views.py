@@ -10,7 +10,7 @@ class HomeView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = Post.objects.first()
-        context['article'] = Post.objects.get(title__startswith="Some")
+        context['article'] = Post.objects.values('article').get(pk=2)
         return context
 
 class PostDetailView(DetailView):
