@@ -1,8 +1,6 @@
-from django.views.generic.edit import FormView
 from .models import Post
-from .forms import UserRegisterForm, UserLoginForm
 from django.views.generic import DetailView, ListView
-from django.shortcuts import render
+
 
 class HomeView(ListView):
     model = Post
@@ -18,6 +16,3 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'
 
-# def user_login(request):
-#     if request.method == 'POST':
-#
