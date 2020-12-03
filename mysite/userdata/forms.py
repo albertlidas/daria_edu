@@ -4,8 +4,9 @@ from django import forms
 
 
 class UserLoginForm(AuthenticationForm):
-    username = forms.CharField(label="user Name", max_length=254)
-    password = forms.CharField(label="Password", widget=forms.PasswordInput)
+    username = forms.CharField(label="User Name", max_length=254, widget=forms.TextInput)
+    password1 = forms.CharField(label="Password1", widget=forms.PasswordInput)
+    password2 = forms.CharField(label="Password2", widget=forms.PasswordInput)
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(label="Email")
