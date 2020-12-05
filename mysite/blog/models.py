@@ -32,5 +32,6 @@ class Post (models.Model):
     article = models.TextField(max_length=1500, blank=True)
     category = models.ForeignKey(Category, max_length=20, on_delete=models.CASCADE, blank=True, null=True)
 
+
     def __str__(self):
         return '{} ({})'.format(self.title, self.category)
