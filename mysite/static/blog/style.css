@@ -1,19 +1,45 @@
 body {
-    background-color: #FFF5EE;
-
-}
-
-p {
-    margin-top: 10%;
-    padding: 5%;
-    border: 3px solid #FDF5E6;
+    background-color: #008B8B;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+	align-items: center;
+	justify-content: center;
+    border: 3px solid;
     text-decoration-color: #000000;
-    background-color: #FDF5E6;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5)
-
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    color: #FFA500;
+    border-radius: 15px;
+    padding: 5%;
+    word-wrap: break-word;
+    font-weight: bold;
 }
 
 h1 {
     text-align: center;
     margin-bottom: 2%;
+    color: #FF8C00 bold;
 }
+
+button {
+    border-radius: 4px;
+    display: block;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 4%;
+    font-weight: bold;
+    padding: 2%;
+    color: #008B8B;
+    font: Times New Roman;
+
+}
+
+button:hover {
+  background-color: #FFA500;
+  color: #008B8B;
+
+}
+

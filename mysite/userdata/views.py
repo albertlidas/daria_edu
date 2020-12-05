@@ -1,22 +1,22 @@
-from django.views.generic import DetailView, ListView, FormView
-from django.contrib.auth import views, login, authenticate
-#from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
-from .forms import UserLoginForm
+from .forms import UserLoginForm, UserRegisterForm
 
+def logIn(request):
+    form = UserLoginForm
+    return render(request, 'login.html', {'form': form})
 
 def signup(request):
     if request.method == 'POST':
-        form = UserLoginForm(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            password1 = form.cleaned_data.get('password1')
-            password2 = form.cleaned_data.get('password2')
-            user = authenticate(username=username, password1=password1, password12=password2)
+            username = form.cleaned_data.get('fullname')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
             login(request, user)
             return redirect('home')
     else:
-        form = UserLoginForm()
+        form = UserRegisterForm()
     return render(request, 'signup.html', {'form': form})
 

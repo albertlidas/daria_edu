@@ -34,13 +34,3 @@ class Post (models.Model):
 
     def __str__(self):
         return '{} ({})'.format(self.title, self.category)
-
-
-class Comment(models.Model):
-    username = models.ForeignKey(Author, on_delete=models.CASCADE)
-    pub_date = models.DateTimeField(auto_now_add=True, editable=True)
-    comment_text = models.TextField(max_length=35, null=True)
-    post_for_comment = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
-
-    def __str__(self):
-        return '{} {}'.format(self.username, self.comment_text[:20])
