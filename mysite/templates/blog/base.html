@@ -7,7 +7,13 @@
     </head>
     <body>
     <div class="page-header">
-
+        <header>
+            <div class="menu">
+            <ul>
+                <li><a href="{% url 'post_list' %}">{{category}}</a></li>
+            </ul>
+            </div>
+        </header>
     </div>
     <div class="content container">
         <div class="row">

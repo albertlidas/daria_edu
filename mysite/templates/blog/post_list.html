@@ -9,7 +9,7 @@ Home Page
             <div class="date">
 
             </div>
-            <h1><a href="">{{ title }}</a></h1>
+            <h1><a href="{% url 'post_list' %}">{{ title }}</a></h1>
 
             <p>{{ article }}</p>
         </div>
@@ -33,7 +33,7 @@ Home Page
     <h2>Your comment has been added.</h2>
 {% else %}
     <h2>Add a new comment</h2>
-    <form action="." method="post">
+    <form action="" method="post">
         {{ comment_form.as_p }}
         {% csrf_token %}
         <p><input type="submit" value="Add comment"></p>

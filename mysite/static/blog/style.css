@@ -46,6 +46,8 @@ p {
 }
 
 .comment {
-    position: static;
+    display: block;
+    position: relative;
+    float: bottom;
 
 }

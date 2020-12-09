@@ -1,4 +1,4 @@
-from .models import Post
+from .models import Post, Category
 from .forms import CommentForm
 from django.views.generic import DetailView, ListView
 from django.shortcuts import render
@@ -18,7 +18,7 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'
 
-def comments(request):
+def comment(request):
     comments = Post.objects.filter(commentator=True)
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
@@ -28,3 +28,8 @@ def comments(request):
     else:
         comment_form = CommentForm()
     return render(request, 'post_list.html', {'comments': comments, 'comment_form': comment_form})
+
+
+class MenuCategory(ListView):
+    model = Category
+    template_name = 'post_list.html'
