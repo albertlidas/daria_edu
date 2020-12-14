@@ -5,5 +5,5 @@ from . import views
 urlpatterns = [
     re_path(r'post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
     path(r'', HomeView.as_view(), name='post_list'),
-    path(r'category/<str:slag>/', MenuCategory.as_view(), name='category'),
+    path(r'category/', MenuCategory.as_view(), name='category'),
 ]

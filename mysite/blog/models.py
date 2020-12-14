@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes.fields import GenericRelation
 from django.urls import reverse
 
 
@@ -38,7 +36,7 @@ class Post (models.Model):
     title = models.TextField(max_length=50)
     article = models.TextField(max_length=1500, blank=True)
     category = models.ForeignKey(Category, max_length=20, on_delete=models.CASCADE, blank=True, null=True)
-    comment = GenericRelation('comment')
+
 
 
     def __str__(self):
@@ -50,7 +48,6 @@ class Comment(models.Model):
     content = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     status = models.BooleanField(default=False)
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, blank=True, null=True)
 
 
     class Meta:

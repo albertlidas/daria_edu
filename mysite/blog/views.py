@@ -14,20 +14,20 @@ class HomeView(ListView):
         context['article'] = Post.objects.values('article').first()
         return context
 
+    def comment(request):
+        comments = Post.objects.filter(commentator=True)
+        if request.method == 'POST':
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                new_comment = comment_form.save()
+                new_comment.save()
+        else:
+            comment_form = CommentForm()
+        return render(request, 'post_list.html', {'comments': comments, 'comment_form': comment_form})
+
 class PostDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'
-
-def comment(request):
-    comments = Post.objects.filter(commentator=True)
-    if request.method == 'POST':
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            new_comment = comment_form.save()
-            new_comment.save()
-    else:
-        comment_form = CommentForm()
-    return render(request, 'post_list.html', {'comments': comments, 'comment_form': comment_form})
 
 
 class MenuCategory(ListView):
