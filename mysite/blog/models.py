@@ -38,7 +38,7 @@ class Post (models.Model):
     title = models.TextField(max_length=50)
     article = models.TextField(max_length=1500, blank=True)
     category = models.ForeignKey(Category, max_length=20, on_delete=models.CASCADE, blank=True, null=True)
-    comment  = GenericRelation('comment')
+    comment = GenericRelation('comment')
 
 
     def __str__(self):
