@@ -4,39 +4,16 @@
 Home Page
 {% endblock %}
 {% block content %}
-
-        <div class="post">
-            <div class="date">
-
-            </div>
-            <h1><a href="{% url 'post_list' %}">{{ title }}</a></h1>
-
-            <p>{{ article }}</p>
-        </div>
-{% with comments.count as total_comments %}
-    <h2>
-        {{ total_comments }}comment{{ total_comments|pluralize }}
-    </h2>
-{% endwith %}
-{% for comment in comments %}
-    <div class="comment">
-        <p class="info">
-            Comment {{ forloop.counter }} by {{ comment.commentator }}
-            {{ comment.created }}
-        </p>
-        {{ comment.content|linebreaks }}
+<div class="post">
+    <div class="date">
     </div>
-{% empty %}
-    <p>There are no comments yet.</p>
-{% endfor %}
-{% if new_comment %}
-    <h2>Your comment has been added.</h2>
-{% else %}
-    <h2>Add a new comment</h2>
-    <form action="" method="post">
-        {{ comment_form.as_p }}
-        {% csrf_token %}
-        <p><input type="submit" value="Add comment"></p>
-    </form>
-{% endif %}
+        <h1><a href="{% url 'post_list' %}">Articles</a></h1>
+    <p>{{ title }}</p>
+    <p>{{ article }}</p>
+    {% for item in category %}
+<div>
+    <p>{{item}}</p>
+</div>
+    {% endfor %}
+    </div>
 {% endblock %}

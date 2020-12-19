@@ -4,7 +4,7 @@ Signing Up Page
 {% endblock %}
 {% block content %}
   <h1>Registration</h1>
-  <form action="{% url 'home' %}" method="post">
+  <form action="{% url 'signup' %}" method="post">
     {% csrf_token %}
     {% for field in form %}
       <p>

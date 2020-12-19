@@ -1,4 +1,4 @@
-from .models import Post, Category
+from .models import Post
 from .forms import CommentForm
 from django.views.generic import DetailView, ListView
 from django.shortcuts import render
@@ -25,11 +25,12 @@ class HomeView(ListView):
             comment_form = CommentForm()
         return render(self, 'post_list.html', {'comments': comments, 'comment_form': comment_form})
 
+    def cat_name(self):
+        category = Post.objects.values('category').first()
+        return render(self, 'post_list.html', {'category': category})
+
 class PostDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'
 
 
-class MenuCategory(ListView):
-    model = Category
-    template_name = 'post_list.html'

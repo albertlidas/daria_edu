@@ -1,3 +1,9 @@
+.comment {
+    display: block;
+    position: relative;
+    float: left;
+}
+
 body {
     background-color: #008B8B;
 }
@@ -31,8 +37,9 @@ p {
     position: absolute;
     left: 50%;
     top: 15%;
+    transform: translateY(-50%);
     margin-right: 5%;
-    display: flex;
+    display: inline block;
 	align-items: center;
 	justify-content: center;
     border: 3px solid;
@@ -45,9 +52,5 @@ p {
     font-weight: bold;
 }
 
-.comment {
-    display: block;
-    position: relative;
-    float: bottom;
 
-}
+

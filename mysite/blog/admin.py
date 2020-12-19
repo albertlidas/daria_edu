@@ -7,7 +7,11 @@ admin.site.register(Category)
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('commentator', 'post', 'created')
-    list_filter = ('created', 'commentator')
-    search_fields = ('commentator', 'content')
+    list_filter = ('commentator', 'post', 'created')
+    search_fields = ('commentator', 'post', 'created')
 
 admin.site.register(Comment, CommentAdmin)
+
+
+# class PostAdmin(admin.ModelAdmin):
+#
