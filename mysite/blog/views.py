@@ -1,4 +1,4 @@
-from .models import Post
+from .models import Post, Category
 from .forms import CommentForm
 from django.views.generic import DetailView, ListView
 from django.shortcuts import render
@@ -12,6 +12,7 @@ class HomeView(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = Post.objects.first()
         context['article'] = Post.objects.values('article').first()
+        context['category'] = Category.objects.all()
         return context
 
     def comment(self):
@@ -24,10 +25,6 @@ class HomeView(ListView):
         else:
             comment_form = CommentForm()
         return render(self, 'post_list.html', {'comments': comments, 'comment_form': comment_form})
-
-    def cat_name(self):
-        category = Post.objects.values('category').first()
-        return render(self, 'post_list.html', {'category': category})
 
 class PostDetailView(DetailView):
     model = Post
