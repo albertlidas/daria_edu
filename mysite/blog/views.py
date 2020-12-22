@@ -13,6 +13,7 @@ class HomeView(ListView):
         context['title'] = Post.objects.first()
         context['article'] = Post.objects.values('article').first()
         context['category'] = Category.objects.all()
+        context['politics'] = Category.objects.filter(cat_name='Politics').values()
         return context
 
     def comment(self):
