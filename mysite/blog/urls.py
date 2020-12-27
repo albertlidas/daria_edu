@@ -3,6 +3,6 @@ from .views import HomeView, PostDetailView
 from . import views
 
 urlpatterns = [
-    re_path(r'post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
+    re_path(r'post/<pk:pk>/', PostDetailView.as_view(), name='post_detail'),
     path(r'', HomeView.as_view(), name='post_list'),
 ]

@@ -1,19 +1,36 @@
 {% extends 'blog/base.html' %}
 
 {% block title %}
-Home Page
+    Home Page
 {% endblock %}
+
 {% block content %}
-<div class="post">
-    <div class="date">
-    </div>
-        <h1 class="header"><a href="{% url 'post_list' %}">Articles</a></h1>
-    <p>{{ title }}</p>
-    <p>{{ article }}</p>
+<h1 class="header"><a href="{% url 'post_list' %}">Articles</a></h1>
     {% for item in category %}
-<ul class = "categories">
-    <li><a href="">{{item}}</a></li>
-</ul>
+        <div class = "categories">
+        <a href="">{{item}}</a>
+        </div>
     {% endfor %}
-    </div>
+
+    {% for art in article %}
+<div class="art_body">
+    <h3>{{ art.title }}</h3>
+    <p>{{ art.article }}</p>
+</div>
+    {% endfor %}
+
+    {% for comment in comments %}
+        <div>
+          <p>
+            {{ comment.commentator }}
+            <span>
+              {{ comment.created }}
+            </span>
+          </p>
+          {{ comment.content | linebreaks }}
+        </div>
+    {% endfor %}
+
+
+
 {% endblock %}

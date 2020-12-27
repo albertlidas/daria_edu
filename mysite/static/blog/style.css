@@ -1,10 +1,21 @@
-
-
-body {
+html, body {
     background-color: #008B8B;
+    margin:0;
+    padding:0;
 }
 
-h1, h2 {
+.header {
+    background-color: #a5e8e8;
+    line-height: normal;
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 2%;
+    padding: 2%;
+    font-family: 'Cursive';
+    font-size: 400%;
+}
+
+h2 {
     text-align: center;
     margin-bottom: 2%;
     color: #FF8C00 bold;
@@ -19,58 +30,62 @@ button, input {
     font-weight: bold;
     padding: 2%;
     color: #008B8B;
-    font: Times New Roman;
-
 }
 
 button:hover {
   background-color: #FFA500;
   color: #008B8B;
-
 }
 
-p {
-    position: relative;
-    left: 50%;
+.art_body {
+    display: flex;
+    margin-left: 30%;
+    margin-right: 5%;
+    margin-bottom: 5%;
     top: 15%;
-    float: left;
-    display: block;
     flex-direction: column;
     align-items: center;
-	justify-content: center;
-    border: 3px solid;
-    text-decoration-color: #000000;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    color: #FFA500;
-    border-radius: 15px;
+	text-decoration-color: #000000;
+    color: black;
     padding: 2%;
     word-wrap: break-word;
-    font-weight: bold;
-
+    border: 1px solid ;
+    text-align: justify;
+    border-radius: 10px;
 }
 
 .categories {
-    position: relative;
-    left: 5%;
-    display: flex;
-    align-items: left;
-	font-weight: bold;
+    position: static;
+    font-weight: bold;
     list-style-type: none;
     list-style-position: inside;
     border: 3px solid;
-    text-decoration-color: #000000;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    font-weight: bold;
-    border-radius: 15px;
+    border-radius: 5px;
+    border-color: #FFA500;
     float: left;
     clear: both;
-    padding: 0 2% 0;
-
+    display: flex;
+    margin-left: 5%;
+    padding: 1%;
+    width: 10%;
 }
 
-.header {
-    position: absolute;
-    left: 15%;
-
-
+:link{
+    text-decoration: none;
 }
+
+.categories:hover {
+    background-color: #FFA500;
+    color: #008B8B;
+}
+
+h3 {
+    background: #a5e8e8;
+    position: relative;
+    margin-bottom: 2%;
+    padding: 2%;
+    border-radius: 10px;
+    color: #FFA500;
+}
+
