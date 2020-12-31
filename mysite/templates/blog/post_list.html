@@ -8,7 +8,7 @@
 <h1 class="header"><a href="{% url 'post_list' %}">Articles</a></h1>
     {% for item in category %}
         <div class = "categories">
-        <a href="">{{item}}</a>
+        <a href="{{ item.get_absolute_url }}">{{ item }}</a>
         </div>
     {% endfor %}
 
