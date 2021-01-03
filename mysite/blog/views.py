@@ -14,10 +14,23 @@ class HomeView(ListView):
         context['article'] = Post.objects.all().values()
         return context
 
+def post_list(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'post_detail.html', {'post': post})
+
 
 class PostDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['politics'] = Post.objects.filter(category_id=3).values()
+        context['technics'] = Post.objects.filter(category_id=4).values()
+        context['science'] = Post.objects.filter(category_id=2).all().values()
+        # context['history'] = Post.objects.filter(category='History').values()
+        # context['music'] = Post.objects.filter(category='Music').values()
+        return context
 
 def comment(request, pk):
     comments = Post.objects.filter(commentator=True)
