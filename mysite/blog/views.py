@@ -1,12 +1,13 @@
-from .models import Post, Category
+from .models import Post, Category, Comment
 from .forms import CommentForm
 from django.views.generic import DetailView, ListView
 from django.shortcuts import render, get_object_or_404
 
-
 class HomeView(ListView):
     model = Post
     template_name = 'post_list.html'
+    context_object_name = 'all_posts_list'
+    paginate_by = 1
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -14,33 +15,24 @@ class HomeView(ListView):
         context['article'] = Post.objects.all().values()
         return context
 
-def post_list(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'post_detail.html', {'post': post})
-
-
 class PostDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'
+    context_object_name = 'post_by_category'
+
+    def comment_form(self, request):
+        if request.method == 'POST':
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                new_comment = comment_form.save()
+                new_comment.save()
+            else:
+                comment_form = CommentForm()
+        return comment_form
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['politics'] = Post.objects.filter(category_id=3).values()
-        context['technics'] = Post.objects.filter(category_id=4).values()
-        context['science'] = Post.objects.filter(category_id=2).all().values()
-        # context['history'] = Post.objects.filter(category='History').values()
-        # context['music'] = Post.objects.filter(category='Music').values()
+        context['art_category'] = Post.objects.filter(category=self.kwargs['pk'])
+        context['commentator'] = Comment.objects.filter(commentator=True).values()
+        context['comment_form'] = self.comment_form
         return context
-
-def comment(request, pk):
-    comments = Post.objects.filter(commentator=True)
-    post = get_object_or_404(Post, pk=pk)
-    if request.method == 'POST':
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            new_comment = comment_form.save()
-            new_comment.save()
-        else:
-            comment_form = CommentForm()
-    return render(request, 'post_list.html', {'post': post, 'comments': comments, 'comment_form': comment_form})
-

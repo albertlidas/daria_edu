@@ -7,20 +7,13 @@
     </head>
     <body>
     <div class="page-header">
-
-            <div class="menu">
-
-            </div>
-
+<h1 class="header"><a href="{% url 'post_list' %}">Articles</a></h1>
     </div>
-    <div class="content container">
-        <div class="row">
-            <div class="col-md-10">
-            {% block content %}
-            {% endblock %}
-            </div>
-        </div>
-    </div>
+
+    {% block content %}
+
+    {% endblock %}
+
 </body>
 </html>
 

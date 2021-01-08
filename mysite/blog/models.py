@@ -26,7 +26,7 @@ class Category(models.Model):
         return self.cat_name
 
     def get_absolute_url(self):
-        return reverse('post_detail', kwargs={'pk': self.pk})
+        return reverse('post_detail', kwargs={'pk': self.id})
 
 
 class Post (models.Model):
@@ -47,7 +47,6 @@ class Comment(models.Model):
     content = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     status = models.BooleanField(default=False)
-
 
     class Meta:
         ordering = ['created']

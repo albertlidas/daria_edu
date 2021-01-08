@@ -5,32 +5,40 @@
 {% endblock %}
 
 {% block content %}
-<h1 class="header"><a href="{% url 'post_list' %}">Articles</a></h1>
+{% block category %}
     {% for item in category %}
         <div class = "categories">
         <a href="{{ item.get_absolute_url }}">{{ item }}</a>
         </div>
     {% endfor %}
+{% endblock %}
 
-    {% for art in article %}
+
+    {% for art in all_posts_list %}
 <div class="art_body">
     <h3>{{ art.title }}</h3>
-    <p>{{ art.article }}</p>
-</div>
-    {% endfor %}
-
-    {% for comment in comments %}
-        <div>
-          <p>
-            {{ comment.commentator }}
-            <span>
-              {{ comment.created }}
-            </span>
-          </p>
-          {{ comment_form }}
-        </div>
-    {% endfor %}
-
-
+    <p>{{ art.article|striptags|truncatechars:300 }}</p>
+    </div>
+{% endfor %}
+<div class="page-current">
+{% if is_paginated %}
+    {% if page_obj.has_previous %}
+        <a href ="?page=1">first</a>
+        <a href="?page={{ page_obj.previous_page_number }}">&laquo</a>
+    {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+            {% if num == page_obj.number %}
+                <button class="btn-page">{{ num }}</button>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">&raquo</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">last</a>
+    {% endif %}
+{% endif %}
+   </div>
 
 {% endblock %}
+

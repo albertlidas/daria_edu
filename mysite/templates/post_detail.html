@@ -12,16 +12,13 @@
             <h1><a href="">{{ title }}</a></h1>
             <h2><a href="{% url 'post_list' %}">{{ title }}</a></h2>
         </div>
-    {% for item in category %}
-        <div class = "categories">
-        <a href="{{ item.get_absolute_url }}">{{ item }}</a>
-        </div>
-    {% endfor %}
 
-    {% for posts in politics %}
+
+    {% for posts in art_category %}
 <div class="art_body">
     <h3>{{ posts.title }}</h3>
     <p>{{ posts.article }}</p>
+    <p>{{ comment_form }}</p>
 </div>
     {% endfor %}
 
