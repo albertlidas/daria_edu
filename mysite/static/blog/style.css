@@ -4,7 +4,6 @@ html, body {
     padding:0;
     font-family: serif;
     font-size: 100%;
-
 }
 
 .header {
@@ -28,32 +27,40 @@ h2 {
     color: #FF8C00 bold;
 }
 
-.page-current a {
-    color: #FFA500;
-    font-weight: bold;
-
-}
-
 .page-current {
     justify-content: center;
-    color: #FFA500;
     text-align: center;
+    position: relative;
+    display: inline;
+    left: 50%;
+}
+
+.page-current a {
+    padding: 1%;
+    color: #FFA500;
+    display: inline-block;
     font-weight: bold;
 }
 
 .btn-page {
-    background-color: #008B8B;
-    border-radius: 4px;
     border: 3px solid;
-    padding: 1%;
-    cursor: pointer;
-    font-size: 100%;
-    text-decoration-color: #000000;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: inset -3px 3px 6px rgba(0, 0, 0, .3);
+    border-radius: 15px;
     border-color: #FFA500;
-    color: #FFA500;
-    font-weight: bold;
+    padding: 1%;
 }
+
+.page-current a:hover {
+    background-color: #FFA500;
+    cursor: pointer;
+    border: 3px solid;
+    box-shadow: inset -3px 3px 6px rgba(0, 0, 0, .3);
+    border-radius: 15px;
+    color: #008B8B;
+    border-color: #FFA500;
+
+}
+
 
 input {
     border-radius: 4px;
@@ -64,7 +71,6 @@ input {
     font-weight: bold;
     padding: 2%;
     color: #008B8B;
-
 }
 
 .art_body {
@@ -88,13 +94,14 @@ input {
     list-style-type: none;
     list-style-position: inside;
     border: 3px solid;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    border-radius: 5px;
+    box-shadow: inset -3px 3px 6px rgba(0, 0, 0, .3);
+    border-radius: 15px;
     border-color: #FFA500;
     float: left;
     clear: both;
     display: flex;
     margin-left: 5%;
+    margin-bottom: 0.5%;
     padding: 1%;
     width: 10%;
     overflow-wrap: anywhere;
@@ -105,21 +112,20 @@ input {
     cursor: pointer;
 }
 
-.categories a:hover {
-    color: #008B8B;
-
-}
-
 .categories a {
     color: #FFA500;
 }
 
 .categories:hover {
-    color: #008B8B;
     background-color: #FFA500;
-    border-color: #008B8B;
     cursor: pointer;
 }
+
+.categories:hover a {
+    cursor: pointer;
+    color: #008B8B;
+}
+
 
 h3 {
     background: #a5e8e8;
@@ -128,4 +134,46 @@ h3 {
     padding: 2%;
     border-radius: 10px;
     color: #FFA500;
+}
+
+.circle, .inner {
+    border-radius: 50%;
+    height: 90px;
+    width: 90px;
+    box-sizing: content-box;
+
+}
+.circle {
+    position: absolute;
+    margin-top: -6.5%;
+    margin-left: 85%;
+
+}
+
+.circle::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border-radius: 50%;
+}
+.inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset -3px 3px 6px rgba(0, 0, 0, .3);
+    background: #008B8B;
+    color: #FFA500;
+    text-decoration: none;
+    font-size: 40px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'Roboto Condensed', sans-serif;
+    transition: all .3s ease-in-out;
+}
+a:hover .inner {
+    background: #FFA500;
+    color: #008B8B;
 }

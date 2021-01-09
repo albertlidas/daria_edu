@@ -5,21 +5,14 @@
 {% endblock %}
 
 {% block content %}
-{% block category %}
-    {% for item in category %}
-        <div class = "categories">
-        <a href="{{ item.get_absolute_url }}">{{ item }}</a>
-        </div>
-    {% endfor %}
-{% endblock %}
-
-
-    {% for art in all_posts_list %}
 <div class="art_body">
+ {% for art in all_posts_list %}
+
     <h3>{{ art.title }}</h3>
     <p>{{ art.article|striptags|truncatechars:300 }}</p>
-    </div>
-{% endfor %}
+   {% endfor %}
+
+ </div>
 <div class="page-current">
 {% if is_paginated %}
     {% if page_obj.has_previous %}
@@ -28,7 +21,7 @@
     {% endif %}
         {% for num in page_obj.paginator.page_range %}
             {% if num == page_obj.number %}
-                <button class="btn-page">{{ num }}</button>
+                <a class="btn-page">{{ num }}</a>
             {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
                 <a href="?page={{ num }}">{{ num }}</a>
                 {% endif %}
@@ -39,6 +32,10 @@
     {% endif %}
 {% endif %}
    </div>
+
+
+
+
 
 {% endblock %}
 

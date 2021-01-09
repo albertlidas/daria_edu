@@ -1,6 +1,6 @@
 from .models import Post, Category, Comment
 from .forms import CommentForm
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, CreateView
 from django.shortcuts import render, get_object_or_404
 
 class HomeView(ListView):
@@ -32,7 +32,16 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        post = get_object_or_404(Post, id=self.kwargs['pk'])
+        context['comments'] = Comment.objects.filter(post=post).order_by('-id')
         context['art_category'] = Post.objects.filter(category=self.kwargs['pk'])
-        context['commentator'] = Comment.objects.filter(commentator=True).values()
         context['comment_form'] = self.comment_form
         return context
+
+class PostCreateView(CreateView):
+    model = Post
+    fields = ['category', 'author', 'title', 'article']
+
+    def form_valid(self, form):
+        form.instance.Author = self.request.user
+        return super().form_valid(form)

@@ -5,21 +5,24 @@
 {% endblock %}
 {% block content %}
 
-        <div class="post">
-            <div class="date">
-
-            </div>
-            <h1><a href="">{{ title }}</a></h1>
-            <h2><a href="{% url 'post_list' %}">{{ title }}</a></h2>
-        </div>
 
 
     {% for posts in art_category %}
 <div class="art_body">
     <h3>{{ posts.title }}</h3>
     <p>{{ posts.article }}</p>
-    <p>{{ comment_form }}</p>
-</div>
+<form method="post" class="comment-form" action=".">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        {% if request.user.is_authenticated %}
+        <input type="submit" value="Submit" class="btn btn-outline-success">
+            {% else %}
+            <input type="submit" value="Submit" class="btn btn-outline-success" disabled> You must be Logged in to Comment
+            {% endif %}
+    </form>
+    </div>
     {% endfor %}
+
+
 
 {% endblock %}

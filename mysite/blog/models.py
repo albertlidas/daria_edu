@@ -36,10 +36,11 @@ class Post (models.Model):
     article = models.TextField(max_length=1500, blank=True)
     category = models.ForeignKey(Category, max_length=20, on_delete=models.CASCADE, blank=True, null=True)
 
-
-
     def __str__(self):
         return '{} ({})'.format(self.title, self.category)
+
+    def get_absolute_url(self):
+        return reverse('post_detail', kwargs={'pk': self.id})
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', related_query_name='comment_post')
