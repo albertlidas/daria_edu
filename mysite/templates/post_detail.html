@@ -5,24 +5,17 @@
 {% endblock %}
 {% block content %}
 
-
-
     {% for posts in art_category %}
 <div class="art_body">
     <h3>{{ posts.title }}</h3>
     <p>{{ posts.article }}</p>
-<form method="post" class="comment-form" action=".">
+    <a href="{% url 'post_update' object.id %}">Update</a>
+    <a href="{% url 'post_delete' object.id %}">Datete</a>
+    <form method="post" class="comment-form" action="{% url 'new_comment' post.id %}">
         {% csrf_token %}
         {{ comment_form.as_p }}
-        {% if request.user.is_authenticated %}
-        <input type="submit" value="Submit" class="btn btn-outline-success">
-            {% else %}
-            <input type="submit" value="Submit" class="btn btn-outline-success" disabled> You must be Logged in to Comment
-            {% endif %}
+        <button type="submit">Submit</button>
     </form>
     </div>
     {% endfor %}
-
-
-
 {% endblock %}

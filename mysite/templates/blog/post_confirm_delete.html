@@ -1,0 +1,14 @@
+{% extends 'userdata/base.html' %}
+{% block title %}
+Deleting the article
+{% endblock %}
+{% block content %}
+<div class="add_post">
+  <h1>Are you sure you would like to delete the article "{{ article.title }}" from the web-site?</h1>
+  <form action="{% url 'article_add' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, I am sure</button>
+    <a href="{% url 'post_detail' object.id %}">No, back to the post list</a>
+  </form>
+</div>
+{% endblock %}
