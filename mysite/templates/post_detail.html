@@ -6,16 +6,39 @@
 {% block content %}
 
     {% for posts in art_category %}
-<div class="art_body">
+<div class="art_body" xmlns="http://www.w3.org/1999/html">
     <h3>{{ posts.title }}</h3>
     <p>{{ posts.article }}</p>
     <a href="{% url 'post_update' object.id %}">Update</a>
     <a href="{% url 'post_delete' object.id %}">Datete</a>
-    <form method="post" class="comment-form" action="{% url 'new_comment' post.id %}">
+    {% for comment in comments %}
+    <div>
+        <p>
+            Commet {{ forloop.counter }} by {{ comment.commentator }}
+            {{ comment.created }}
+        </p>
+
+        {{ comment.content|linebreaks }}
+    </div>
+    {% empty %}
+    <p>There are no comments yet</p>
+
+    {% endfor %}
+
+    {% if new_comment %}
+        <h2>Your comment has been added</h2>
+    {% else %}
+        <h2>Add a new comment</h2>
+    <form method="post" action="">
         {% csrf_token %}
         {{ comment_form.as_p }}
+        <input type="submit">
         <button type="submit">Submit</button>
     </form>
+    {% endif %}
     </div>
     {% endfor %}
+    {% with comments as total_comments %}
+    <p>{{ total_comments }}</p>
+    {% endwith %}
 {% endblock %}

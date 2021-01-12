@@ -61,18 +61,17 @@ class DeletePostView (LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 def add_comment (request, pk):
-    post_id = request.POST.get('post_id')
-    post = get_object_or_404(Post, pk=post_id)
-    comments = Comment.objects.filter(is_active=True)
+    post = get_object_or_404(Post, pk=Post.pk)
+    comments = Post.comments.filter(active=True).values()
     new_comment = None
     if request.method == 'POST':
-        comment_form = CommentForm(request.POST)
+        comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
             new_comment.post = post
             new_comment.save()
-    else:
-        comment_form = CommentForm()
+        else:
+            comment_form = CommentForm
     return render(request, 'add_comment.html', {'post': post, 'comments': comments, 'new_comment': new_comment, 'comment_form': comment_form})
 
 

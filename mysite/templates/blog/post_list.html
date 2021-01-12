@@ -6,12 +6,11 @@
 
 {% block content %}
 <div class="art_body">
- {% for art in all_posts_list %}
-    <h3>{{ art.title }}</h3>
-    <p>{{ art.article|striptags|truncatechars:300 }}</p>
-    <a href="{{ art.get_absolute_url }}">Read more...</a>
-   {% endfor %}
-
+    {% for art in all_posts_list %}
+        <h3>{{ art.title }}</h3>
+        <p>{{ art.article|striptags|truncatechars:300 }}</p>
+        <a href="{{ art.get_absolute_url }}">Read more...</a>
+    {% endfor %}
  </div>
 <div class="page-current">
 {% if is_paginated %}
