@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+{% block content %}
+    {% for single in single_article %}
+
+    <h3>{{ single.title }}</h3>
+    <p>{{ single.article }}</p>
+    {% endfor %}
+{% endblock %}

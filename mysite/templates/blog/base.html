@@ -8,23 +8,25 @@
     <body>
 
     <div class="page-header">
-
+<a class="signup" href="{% url 'signup' %}">Register</a>
+<a class="login" href="{% url 'login' %}">Log In</a>
 <h1 class="header"><a href="{% url 'post_list' %}">Articles</a>
- <a href="{% url 'article_add' %}">
+
+
     <div class="circle">
         <div class="inner">
-            +
+            <a class="add_article" href="{% url 'article_add' %}">+</a>
         </div>
     </div>
-</a>
-    </h1>
+
+</h1>
     </div>
     <div>
-    {% for item in category %}
-        <div class = "categories">
-        <a href="{{ item.get_absolute_url }}">{{ item }}</a>
-        </div>
-    {% endfor %}
+        {% for item in category %}
+            <div class = "categories">
+            <a href="{{ item.get_absolute_url }}">{{ item }}</a>
+            </div>
+        {% endfor %}
 </div>
     {% block content %}{% endblock %}
 

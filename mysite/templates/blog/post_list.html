@@ -7,11 +7,17 @@
 {% block content %}
 <div class="art_body">
     {% for art in all_posts_list %}
+       <div>
         <h3>{{ art.title }}</h3>
         <p>{{ art.article|striptags|truncatechars:300 }}</p>
-        <a href="{{ art.get_absolute_url }}">Read more...</a>
-    {% endfor %}
- </div>
+           </div>
+
+        <a href="{% url 'post_detail_view' art.id %}">Read more...</a>
+
+     </div>
+{% endfor %}
+
+
 <div class="page-current">
 {% if is_paginated %}
     {% if page_obj.has_previous %}
@@ -31,10 +37,6 @@
     {% endif %}
 {% endif %}
    </div>
-
-
-
-
 
 {% endblock %}
 

@@ -43,10 +43,10 @@ button:hover {
 
 }
 
-a {
+.fgt-link {
     text-decoration: none;
-    justify-content: center;
-    padding-top: 3%;
+    padding-top: 5%;
+    margin-top: 5%;
 }
 
 

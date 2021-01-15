@@ -2,7 +2,6 @@ from django.contrib import admin
 from .models import Author, Post, Category, Comment
 
 admin.site.register(Author)
-admin.site.register(Category)
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('commentator', 'post', 'created')
@@ -13,8 +12,15 @@ admin.site.register(Comment, CommentAdmin)
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('author', 'pub_date', 'title', 'category')
-    list_filter = ('author', 'pub_date', 'title', 'category')
-    search_fields = ('author', 'pub_date', 'title', 'category')
+    list_display = ('author', 'pub_date', 'title', 'category', 'id')
+    list_filter = ('author', 'pub_date', 'title', 'category', 'id')
+    search_fields = ('author', 'pub_date', 'title', 'category', 'id')
 
 admin.site.register(Post, PostAdmin)
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('cat_name', 'id')
+    list_filter = ('cat_name', 'id')
+    search_fields = ('cat_name', 'id')
+
+admin.site.register(Category, CategoryAdmin)
