@@ -8,17 +8,15 @@ html, body {
 
 .header {
     background-color: #a5e8e8;
-    line-height: normal;
     position: relative;
     margin: 0 0 4% 0;
-    padding: 3% 0% 8% 3%;
+    padding: 2% 0% 2% 3%;
     font-family: 'Cursive';
     font-size: 400%;
 }
 
 .header a {
     color: #FFA500;
-
 }
 
 h2 {
@@ -136,6 +134,7 @@ h3 {
     margin-bottom: 2%;
     padding: 2%;
     color: #FFA500;
+
 }
 
 .circle, .inner {
@@ -146,8 +145,9 @@ h3 {
 
 }
 .circle {
-    position: relative;
-    margin: -7% 90%;
+    position: absolute;
+    top: 13%;
+    left: 90%;
 }
 
 .circle::before {
@@ -209,7 +209,7 @@ textarea {
     text-align: right;
 
 }
-.art_body a:hover {
+.art_body a:hover, .signup:hover, .login:hover {
     background-color: #FFA500;
     cursor: pointer;
     border: 3px solid;
@@ -219,27 +219,29 @@ textarea {
     border-color: #FFA500;
 }
 
+.btn-account {
+    margin-left: 60%;
+  }
+
 .signup, .login {
-    padding: 1%;
     color: #FFA500;
     font-weight: bold;
-    display: inline;
     border-radius: 15px;
     border: 3px solid;
-    position: absolute;
+    position: relative;
+    padding: 1%;
     z-index: 101;
+
 
 }
 
 .page-header {
     background-color: #a5e8e8;
-
 }
 
-.signup {
-    margin: 4% 0 0 70%;
+.art_body h3 {
+    text-align: center;
 }
 
-.login {
-    margin: 4% 0 0 80%;
-}
+
+

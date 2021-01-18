@@ -46,10 +46,11 @@ class Post (models.Model):
         return reverse('post_detail_view', kwargs={'pk': self.id, 'title': self.title})
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', related_query_name='comment_post')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     commentator = models.ForeignKey(Author, on_delete=models.CASCADE, max_length=80)
     content = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
+    email = models.EmailField(default=False)
     status = models.BooleanField(default=False)
 
     class Meta:
@@ -59,4 +60,4 @@ class Comment(models.Model):
         return 'Comment {} by {}'.format(self.created, self.commentator)
 
     def get_absolute_url(self):
-        return reverse('post_detail_view', kwargs={'pk': self.id})
+        return reverse('post_detail', kwargs={'pk': self.id})

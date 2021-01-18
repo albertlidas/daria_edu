@@ -1,8 +1,9 @@
 from .models import Post, Category, Comment
 from .forms import CommentForm
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic.edit import FormMixin, SingleObjectMixin
 
 class HomeView(ListView):
     model = Post
@@ -16,35 +17,36 @@ class HomeView(ListView):
         context['article'] = Post.objects.all().values()
         return context
 
-class PostDetailView(DetailView):
+class PostDetailView(FormMixin, DetailView):
     model = Post
     template_name = 'post_detail.html'
     context_object_name = 'post_by_category'
+    form_class = CommentForm
 
-    def add_comment(self, request, pk):
-        post = get_object_or_404(Post, pk=Post.pk)
-        comments = Post.comments.filter(active=True).values()
-        new_comment = None
-        if self.request.method == 'POST':
-            comment_form = CommentForm(self.request.POST)
-            if comment_form.is_valid():
-                new_comment = comment_form.save(commit=False)
-                new_comment.post = post
-                new_comment.save()
-            else:
-                comment_form = CommentForm()
-        return render(request, 'post_detail.html',
-                      {'post': post,
-                       'comments': comments,
-                       'new_comment': new_comment, 'comment_form': comment_form})
+    def get_success_url(self):
+        return reverse('post_detail', kwargs={'pk': self.object.pk})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        post = get_object_or_404(Post, id=self.kwargs['pk'])
-        context['comments'] = Comment.objects.filter(post=post).order_by('-id')
+        context['comments'] = Comment.objects.filter(post=self.object)
+        context['comment_form'] = CommentForm()
         context['art_category'] = Post.objects.filter(category=self.kwargs['pk'])
-        context['comment_form'] = CommentForm(initial={'post': self.object.pk})
         return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        comment_form = self.get_form()
+        if comment_form.is_valid():
+            return self.form_valid(comment_form)
+        else:
+            return self.form_invalid(comment_form)
+
+
+    def form_valid(self, comment_form):
+        comment_form.instance.post = self.object
+        comment_form.instance.author = self.request.user
+        comment_form.save()
+        return super().form_valid(comment_form)
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -82,6 +84,7 @@ class DeletePostView (LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class ArticleDetailView(DetailView):
     model = Post
     template_name = 'post_detail_view.html'
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

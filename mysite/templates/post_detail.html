@@ -3,36 +3,37 @@
 {% block title %}
 {{ title }}
 {% endblock %}
+
 {% block content %}
     {% for posts in art_category %}
-<div class="art_body">
-    <a href="{% url 'post_update' posts.id %}">Update</a>
-    <a href="{% url 'post_delete' posts.id %}">Datete</a>
-    <h3>{{ posts.title }}</h3>
-    <p>{{ posts.article }}</p>
+        <div class="art_body">
+            <a href="{% url 'post_update' posts.id %}">Update</a>
+            <a href="{% url 'post_delete' posts.id %}">Datete</a>
+                <h3>{{ posts.title }}</h3>
+                <p>{{ posts.article }}</p>
 
-<div class="comment_block">
-    {% for comment in comments %}
+                <div class="comment_block">
+                    {% for comment in comments %}
+                        <p сlass="comments">
+                        Comment {{ forloop.counter }} by {{ comment.commentator }}
+                        {{ comment.created }}
+                        </p>
+                        {{ comment.content|linebreaks }}
+                        {% empty %}
+                        <p>There are no comments yet</p>
+                    {% endfor %}
 
-        <p сlass="comments">
-            Comment {{ forloop.counter }} by {{ comment.commentator }}
-            {{ comment.created }}
-        </p>
-        {{ comment.content|linebreaks }}
-        {% empty %}
-    <p>There are no comments yet</p>
-    {% endfor %}
- {% if new_comment %}
-  <h3>Your comment has been added.</h3>
-{% else %}
-  <h3>Add a new comment</h3>
-  <form action="" method="post">
-    {{ comment_form.as_p }}
-    {% csrf_token %}
-    <p><input type="submit" value="Add comment"></p>
-  </form>
-{% endif %}
-    </div>
-    </div>
+                    {% if new_comment %}
+                        <h3>Your comment has been added.</h3>
+                    {% else %}
+                        <h3>Add a new comment</h3>
+                        <form action="." method="post">
+                            {{ comment_form.as_p }}
+                            {% csrf_token %}
+                            <p><input type="submit" value="Add comment"></p>
+                        </form>
+                    {% endif %}
+                </div>
+        </div>
     {% endfor %}
 {% endblock %}

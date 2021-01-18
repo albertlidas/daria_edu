@@ -8,8 +8,10 @@
     <body>
 
     <div class="page-header">
+        <div class="btn-account">
 <a class="signup" href="{% url 'signup' %}">Register</a>
 <a class="login" href="{% url 'login' %}">Log In</a>
+            </div>
 <h1 class="header"><a href="{% url 'post_list' %}">Articles</a>
 
 
@@ -21,7 +23,9 @@
 
 </h1>
     </div>
-    <div>
+
+
+    <div class="menu_bar">
         {% for item in category %}
             <div class = "categories">
             <a href="{{ item.get_absolute_url }}">{{ item }}</a>

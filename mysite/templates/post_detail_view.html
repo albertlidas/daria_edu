@@ -1,12 +1,15 @@
 {% extends 'blog/base.html' %}
-
 {% block title %}
-{{ title }}
+    {{ single_article.title }}
 {% endblock %}
-{% block content %}
-    {% for single in single_article %}
 
+{% block content %}
+<div class="art_body">
+    {% for single in single_article %}
     <h3>{{ single.title }}</h3>
     <p>{{ single.article }}</p>
-    {% endfor %}
+
+{% endfor %}
+</div>
+
 {% endblock %}
