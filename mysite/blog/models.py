@@ -11,13 +11,11 @@ POST_CATEGORIES = [
     ('Music', 'Music'),
 ]
 
-
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return str(self.user)
-
 
 class Category(models.Model):
     cat_name = models.CharField(max_length=20, blank=False, null=False, choices=POST_CATEGORIES)
@@ -26,7 +24,7 @@ class Category(models.Model):
         return self.cat_name
 
     def get_absolute_url(self):
-        return reverse('post_detail', kwargs={'pk': self.id})
+        return reverse('post_category_view', kwargs={'pk': self.id})
 
 
 class Post (models.Model):
@@ -43,14 +41,13 @@ class Post (models.Model):
         ordering = ['pub_date']
 
     def get_absolute_url(self):
-        return reverse('post_detail_view', kwargs={'pk': self.id, 'title': self.title})
+        return reverse('post_detail', kwargs={'pk': self.id, 'title': self.title})
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     commentator = models.ForeignKey(Author, on_delete=models.CASCADE, max_length=80)
     content = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
-    email = models.EmailField(default=False)
     status = models.BooleanField(default=False)
 
     class Meta:

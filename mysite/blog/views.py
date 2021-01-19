@@ -1,13 +1,13 @@
 from .models import Post, Category, Comment
 from .forms import CommentForm
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import get_object_or_404, reverse, render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.edit import FormMixin, SingleObjectMixin
 
 class HomeView(ListView):
     model = Post
-    template_name = 'post_list.html'
+    template_name = 'base.html'
     context_object_name = 'all_posts_list'
     paginate_by = 1
 
@@ -20,7 +20,6 @@ class HomeView(ListView):
 class PostDetailView(FormMixin, DetailView):
     model = Post
     template_name = 'post_detail.html'
-    context_object_name = 'post_by_category'
     form_class = CommentForm
 
     def get_success_url(self):
@@ -28,9 +27,11 @@ class PostDetailView(FormMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        post = get_object_or_404(Post, id=self.kwargs['pk'])
+        context['single_article'] = Post.objects.filter(id=post.pk)
         context['comments'] = Comment.objects.filter(post=self.object)
         context['comment_form'] = CommentForm()
-        context['art_category'] = Post.objects.filter(category=self.kwargs['pk'])
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -81,13 +82,13 @@ class DeletePostView (LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
-class ArticleDetailView(DetailView):
+class CategoryView(ListView):
     model = Post
-    template_name = 'post_detail_view.html'
-
+    template_name = 'post_category_view.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        post = get_object_or_404(Post, id=self.kwargs['pk'])
-        context['single_article'] = Post.objects.filter(id=post.pk)
+        context['art_category'] = Post.objects.filter(category=self.kwargs['pk'])
         return context
+
+

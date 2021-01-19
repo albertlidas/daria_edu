@@ -1,0 +1,14 @@
+{% extends 'userdata/base.html' %}
+
+{% block title %}
+    User Profile
+{% endblock %}
+
+{% block content %}
+<div class="profile">
+    <h3>User Profile</h3>
+    <b>Name:</b>@{{ user.username }}<br>
+    <b>Email:</b>{{ user.email }}<br>
+    <img style="width: 64px; height: 64px;" src="{{ user.profile.img.url }}">
+</div>
+{% endblock %}

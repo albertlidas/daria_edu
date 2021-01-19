@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Author, Post, Category, Comment
+from .models import *
 
 admin.site.register(Author)
 
@@ -24,3 +24,4 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ('cat_name', 'id')
 
 admin.site.register(Category, CategoryAdmin)
+

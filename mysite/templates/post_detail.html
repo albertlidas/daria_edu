@@ -5,20 +5,21 @@
 {% endblock %}
 
 {% block content %}
-    {% for posts in art_category %}
+    {% for posts in single_article %}
         <div class="art_body">
             <a href="{% url 'post_update' posts.id %}">Update</a>
-            <a href="{% url 'post_delete' posts.id %}">Datete</a>
+            <a href="{% url 'post_delete' posts.id %}">Delete</a>
                 <h3>{{ posts.title }}</h3>
                 <p>{{ posts.article }}</p>
 
                 <div class="comment_block">
                     {% for comment in comments %}
                         <p сlass="comments">
-                        Comment {{ forloop.counter }} by {{ comment.commentator }}
-                        {{ comment.created }}
-                        </p>
-                        {{ comment.content|linebreaks }}
+                        Comment {{ forloop.counter }}<br>{{ comment.commentator }}
+                        {{ comment.created|date:"j M Y P" }}<br>
+
+                        {{ comment.content}}
+                            </p>
                         {% empty %}
                         <p>There are no comments yet</p>
                     {% endfor %}
@@ -27,10 +28,10 @@
                         <h3>Your comment has been added.</h3>
                     {% else %}
                         <h3>Add a new comment</h3>
-                        <form action="." method="post">
+                        <form class ="comment-form" action="." method="post">
                             {{ comment_form.as_p }}
                             {% csrf_token %}
-                            <p><input type="submit" value="Add comment"></p>
+                            <input type="submit" value="Add comment">
                         </form>
                     {% endif %}
                 </div>

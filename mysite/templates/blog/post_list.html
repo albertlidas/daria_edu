@@ -12,7 +12,7 @@
         <p>{{ art.article|striptags|truncatechars:300 }}</p>
            </div>
 
-        <a href="{% url 'post_detail_view' art.id %}">Read more...</a>
+        <a href="{% url 'post_detail' art.id %}">Read more...</a>
 
      </div>
 {% endfor %}

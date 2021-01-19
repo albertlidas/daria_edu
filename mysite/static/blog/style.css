@@ -209,7 +209,7 @@ textarea {
     text-align: right;
 
 }
-.art_body a:hover, .signup:hover, .login:hover {
+.art_body a:hover {
     background-color: #FFA500;
     cursor: pointer;
     border: 3px solid;
@@ -219,29 +219,87 @@ textarea {
     border-color: #FFA500;
 }
 
-.btn-account {
-    margin-left: 60%;
-  }
-
-.signup, .login {
-    color: #FFA500;
-    font-weight: bold;
-    border-radius: 15px;
-    border: 3px solid;
-    position: relative;
-    padding: 1%;
-    z-index: 101;
-
-
-}
-
 .page-header {
     background-color: #a5e8e8;
+    position: relative;
 }
 
 .art_body h3 {
     text-align: center;
 }
 
+.add_btn {
+    position: absolute;
+    margin-top: -12.5%;
+    margin-left: 90%;
+}
 
 
+.add_btn a {
+    color: #FFA500;
+}
+
+.btn-account {
+    z-index: 101;
+    left: 60%;
+    top: 4%;
+    position: absolute;
+    margin: 2%;
+    width: 20%;
+}
+
+.account-btn {
+    position: relative;
+    display: inline;
+    color: #008B8B;
+    font-weight: bold;
+    border-color: #008B8B;
+    border: 3px solid;
+    border-radius: 10px;
+    padding: 1%;
+}
+
+#id_content label, textarea {
+    display: block;
+
+
+}
+
+#id_content textarea {
+    background-color: #a5e8e8;
+    border: 1px solid #008B8B;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: inset -3px 3px 6px rgba(0, 0, 0, .3);
+    color: black;
+    font-family: Cambria, Georgia, Times, 'Times New Roman', serif;
+    position: relative;
+    width: 100%;
+}
+
+.submit-btn {
+    position: static;
+}
+
+
+
+.comments {
+    display: block;
+    margin-top: 5%;
+}
+
+.comment_block {
+    display: inline;
+    position: relative;
+    margin: 2%;
+    width: 100%;
+}
+
+#id_commentator {
+
+}
+
+.comment_block input {
+    width: 15%;
+    padding: 1%;
+
+}
