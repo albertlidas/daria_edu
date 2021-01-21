@@ -29,14 +29,15 @@
 
     </div>
 
-
-    <div class="menu_bar">
         {% for item in category %}
-            <div class = "categories">
-            <a href="{{ item.get_absolute_url }}">{{ item }}</a>
+            <div class="menu_bar">
+                <div class = "categories">
+                <a href="{{ item.get_absolute_url }}">{{ item }}</a>
+                </div>
             </div>
         {% endfor %}
-</div>
+
+
     {% block content %}{% endblock %}
 
 </body>

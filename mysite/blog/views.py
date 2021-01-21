@@ -31,7 +31,6 @@ class PostDetailView(FormMixin, DetailView):
         context['single_article'] = Post.objects.filter(id=post.pk)
         context['comments'] = Comment.objects.filter(post=self.object)
         context['comment_form'] = CommentForm()
-
         return context
 
     def post(self, request, *args, **kwargs):

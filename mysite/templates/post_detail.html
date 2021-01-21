@@ -1,40 +1,48 @@
 {% extends 'blog/base.html' %}
-
 {% block title %}
-{{ title }}
+    {% for posts in single_article %}
+        {{ posts.title }}
+    {% endfor %}
+{% endblock %}
+
+{% block menu %}
+
 {% endblock %}
 
 {% block content %}
     {% for posts in single_article %}
         <div class="art_body">
+            <img class="author-avatar" style="width: 100x; height: 100px;" src="{{ user.profile.img.url }}">
+            <p class="author-name">{{ post.author }}</p>
             <a href="{% url 'post_update' posts.id %}">Update</a>
             <a href="{% url 'post_delete' posts.id %}">Delete</a>
                 <h3>{{ posts.title }}</h3>
                 <p>{{ posts.article }}</p>
 
-                <div class="comment_block">
+ <div class="comment_block">
                     {% for comment in comments %}
-                        <p сlass="comments">
-                        Comment {{ forloop.counter }}<br>{{ comment.commentator }}
-                        {{ comment.created|date:"j M Y P" }}<br>
 
-                        {{ comment.content}}
-                            </p>
-                        {% empty %}
-                        <p>There are no comments yet</p>
-                    {% endfor %}
+                            <p сlass="comments">
+                            Comment {{ forloop.counter }}
+                                {{ comment.commentator }}
+                                {{ comment.created|date:"j M Y P" }}
+                                {{ comment.content}}
+                                </p>
+                            {% empty %}
+                            <p>There are no comments yet</p>
+                        {% endfor %}
 
-                    {% if new_comment %}
-                        <h3>Your comment has been added.</h3>
-                    {% else %}
-                        <h3>Add a new comment</h3>
-                        <form class ="comment-form" action="." method="post">
-                            {{ comment_form.as_p }}
-                            {% csrf_token %}
-                            <input type="submit" value="Add comment">
-                        </form>
-                    {% endif %}
-                </div>
-        </div>
-    {% endfor %}
+                        {% if new_comment %}
+                            <h3>Your comment has been added.</h3>
+                        {% else %}
+
+                            <form class ="comment-form" action="." method="post">
+                                {{ comment_form.as_p }}
+                                {% csrf_token %}
+                                <input type="submit" value="Add comment">
+                            </form>
+            {% endif %}
+      {% endfor %}
+     </div>
+ </div>
 {% endblock %}

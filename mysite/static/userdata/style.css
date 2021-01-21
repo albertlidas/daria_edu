@@ -49,5 +49,22 @@ button:hover {
     margin-top: 5%;
 }
 
+.helptext {
+    font-size: 70%;
+}
 
+.avatar {
+    position: absolute;
+    margin-left: 55%;
+    margin-top: -25%;
+    border-radius: 150px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
 
+label {
+    display: block;
+}
+
+.profile b {
+    color: black;
+}
