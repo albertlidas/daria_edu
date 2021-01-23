@@ -54,7 +54,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     fields = ['category', 'author', 'title', 'article']
 
     def form_valid(self, form):
-        form.instance.Author = self.request.user
+        form.instance.author = self.request.user
         return super().form_valid(form)
 
 class UpdatePostView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -62,12 +62,12 @@ class UpdatePostView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     fields = ['category', 'author', 'title', 'article']
 
     def form_valid(self, form):
-        form.instance.Author = self.request.user
+        form.instance.author = self.request.user.username
         return super().form_valid(form)
 
     def test_func(self):
         post = self.get_object()
-        if self.request.user == post.author:
+        if self.request.user.username == post.author:
             return True
         return False
 
