@@ -12,7 +12,7 @@
 {% block content %}
     {% for posts in single_article %}
         <div class="art_body">
-            <img class="author-avatar" style="width: 100x; height: 100px;" src="{{ user.profile.img.url }}">
+            <img class="author-avatar" style="width: 100px; height: 100px;" src="{{ user.profile.img.url }}">
             <p class="author-name">{{ post.author }}</p>
             <a href="{% url 'post_update' posts.id %}">Update</a>
             <a href="{% url 'post_delete' posts.id %}">Delete</a>
@@ -22,12 +22,14 @@
  <div class="comment_block">
                     {% for comment in comments %}
 
-                            <p сlass="comments">
-                            Comment {{ forloop.counter }}
-                                {{ comment.commentator }}
-                                {{ comment.created|date:"j M Y P" }}
-                                {{ comment.content}}
-                                </p>
+
+                                <p>Total comments number is {{ forloop.counter }}</p>
+                    <hr style="height:2px; color:white;">
+                                <p>{{ comment.content}}</p>
+                                <p>{{ comment.commentator }} {{ comment.created|date:"j M Y P" }}</p>
+                    <hr style="height:2px; color:white;">
+
+
                             {% empty %}
                             <p>There are no comments yet</p>
                         {% endfor %}

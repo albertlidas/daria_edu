@@ -1,9 +1,9 @@
 from .models import Post, Category, Comment
 from .forms import CommentForm
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
-from django.shortcuts import get_object_or_404, reverse, render
+from django.shortcuts import get_object_or_404, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic.edit import FormMixin, SingleObjectMixin
+from django.views.generic.edit import FormMixin
 
 class HomeView(ListView):
     model = Post
