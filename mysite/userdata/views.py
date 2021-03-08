@@ -36,7 +36,7 @@ def signup(request):
 @login_required
 def profile(request):
     if request.method == 'POST':
-        img_profile = ProfileImage(request.POST, request.FILES, instance=request.user.profile.user)
+        img_profile = ProfileImage(request.POST, request.FILES, instance=request.user.profile)
         update_user = UserUpdateForm(request.POST, instance=request.user)
         if update_user.is_valid() and img_profile.is_valid():
             update_user.save()
@@ -44,10 +44,6 @@ def profile(request):
             messages.success(request, f'Profile for {User.username} has been updated successfully')
             return redirect('profile')
     else:
-        img_profile = ProfileImage(instance=request.user.profile.user)
+        img_profile = ProfileImage(instance=request.user.profile)
         update_user = UserUpdateForm(instance=request.user)
-    data = {
-        'img_profile': img_profile,
-        'update_user': update_user
-    }
-    return render(request, 'profile.html', data)
+    return render(request, 'profile.html', {'img_profile': img_profile, 'update_user': update_user})

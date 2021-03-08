@@ -318,3 +318,19 @@ label {
     display: block;
 }
 
+
+.search {
+    position: absolute;
+    display:inline-block;
+    z-index: 101;
+    margin-left: 30%;
+    margin-top: 3%;
+}
+
+.search input {
+    width: 50%;
+
+
+
+}
+

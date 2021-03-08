@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.edit import FormMixin
 
+
 class HomeView(ListView):
     model = Post
     template_name = 'base.html'
@@ -91,3 +92,18 @@ class CategoryView(ListView):
         return context
 
 
+class SearchView(ListView):
+    model = Post
+    template_name = "search.html"
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        queryset = super().get_queryset().filter(title__icontains=query)
+        if query:
+            queryset = queryset.filter(title__icontains=query)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['queryset'] = self.get_queryset()
+        return context

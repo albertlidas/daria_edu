@@ -13,7 +13,7 @@ class Profile(models.Model):
     def save(self):
         super().save()
         image =Image.open(self.img.path)
-        if image.height > 64 or image.width > 64:
-            resize = (64, 64)
+        if image.height > 150 or image.width > 150:
+            resize = (150, 150)
             image.thumbnail(resize)
             image.save(self.img.path)

@@ -9,11 +9,9 @@
     <h3>User Profile</h3>
     <b>Name:</b>@{{ user.username }}<br>
     <b>Email:</b>{{ user.email }}<br>
-<<<<<<< HEAD
-    <img class="avatar" style="width: 150px; height: 150px;" src="{{ user.profile.img.url }}">
-=======
+
     <img class="avatar" src="{{ user.profile.img.url }}">
->>>>>>> 5a1614e3ade5556bd797c91a43c60063842c7bc3
+
     <h3>Change your profile</h3>
     <form method="post" enctype="multipart/form-data">
     {% csrf_token %}

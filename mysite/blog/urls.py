@@ -8,5 +8,6 @@ urlpatterns = [
     re_path(r'^(?P<pk>\d+)/update/$', UpdatePostView.as_view(), name='post_update'),
     re_path(r'^(?P<pk>\d+)/delete/$', DeletePostView.as_view(), name='post_delete'),
     re_path(r'^category/(?P<pk>\d+)/$', CategoryView.as_view(), name='post_category_view'),
+    re_path(r'^search/$', SearchView.as_view(), name='search'),
 
 ]
