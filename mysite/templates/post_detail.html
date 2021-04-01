@@ -10,6 +10,15 @@
 {% endblock %}
 
 {% block content %}
+
+{% for item in category_view_detail %}
+            <div class="menu_bar">
+                <div class = "categories">
+                <a href="{{ item.get_absolute_url }}">{{ item }}</a>
+                </div>
+            </div>
+        {% endfor %}
+
     {% for posts in single_article %}
         <div class="art_body">
             <img class="author-avatar" style="width: 100px; height: 100px;" src="{{ user.profile.img.url }}">
@@ -20,18 +29,20 @@
                 <p>{{ posts.article }}</p>
 
  <div class="comment_block">
+     {% if comments %}
+        <p>Total comments number is {{ comments_count }}</p>
+     {% else %}
+     <p>There are no comments yet</p>
+
+     {% endif %}
+
                     {% for comment in comments %}
 
-
-                                <p>Total comments number is {{ forloop.counter }}</p>
                     <hr style="height:2px; color:white;">
                                 <p>{{ comment.content}}</p>
                                 <p>{{ comment.commentator }} {{ comment.created|date:"j M Y P" }}</p>
                     <hr style="height:2px; color:white;">
 
-
-                            {% empty %}
-                            <p>There are no comments yet</p>
                         {% endfor %}
 
                         {% if new_comment %}

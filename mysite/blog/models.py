@@ -28,7 +28,7 @@ class Category(models.Model):
 
 
 class Post (models.Model):
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True)
     pub_date = models.DateTimeField(editable=True, auto_now_add=True, blank=True, null=True)
     title = models.TextField(max_length=50)
     article = models.TextField(max_length=1500, blank=True)
@@ -47,7 +47,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     commentator = models.ForeignKey(Author, on_delete=models.CASCADE, max_length=80)
     content = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.BooleanField(default=False)
 
     class Meta:

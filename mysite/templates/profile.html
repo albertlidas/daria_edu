@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block content %}
+
+<a href="{% url 'post_list' %}" style="text-decoration:none">← Return to the home page</a>
 <div class="profile">
     <h3>User Profile</h3>
     <b>Name:</b>@{{ user.username }}<br>

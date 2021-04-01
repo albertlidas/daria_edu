@@ -9,8 +9,8 @@
 
     <div class="page-header">
         <span class="search" >
-    <form name="q" action="{% url 'search' %}">
-        <input type="search" placeholder="search">
+    <form action="{% url 'search' %}" method="get">
+        <input type="search" name="q" placeholder="search">
         <input type="submit" value="Submit">
     </form>
 </span>
@@ -35,13 +35,7 @@
 
     </div>
 
-        {% for item in category %}
-            <div class="menu_bar">
-                <div class = "categories">
-                <a href="{{ item.get_absolute_url }}">{{ item }}</a>
-                </div>
-            </div>
-        {% endfor %}
+
 
 
     {% block content %}{% endblock %}

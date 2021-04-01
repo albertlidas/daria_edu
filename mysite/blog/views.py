@@ -1,7 +1,7 @@
 from .models import Post, Category, Comment
 from .forms import CommentForm
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
-from django.shortcuts import get_object_or_404, reverse
+from django.shortcuts import get_object_or_404, reverse, render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.edit import FormMixin
 
@@ -31,7 +31,9 @@ class PostDetailView(FormMixin, DetailView):
         post = get_object_or_404(Post, id=self.kwargs['pk'])
         context['single_article'] = Post.objects.filter(id=post.pk)
         context['comments'] = Comment.objects.filter(post=self.object)
+        context['comments_count'] = Comment.objects.filter(post=self.object).count()
         context['comment_form'] = CommentForm()
+        context['category_view_detail'] = Category.objects.all()
         return context
 
     def post(self, request, *args, **kwargs):
@@ -89,21 +91,13 @@ class CategoryView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['art_category'] = Post.objects.filter(category=self.kwargs['pk'])
+        context['category_view'] = Category.objects.all()
         return context
 
 
-class SearchView(ListView):
-    model = Post
-    template_name = "search.html"
-
-    def get_queryset(self):
-        query = self.request.GET.get("q")
-        queryset = super().get_queryset().filter(title__icontains=query)
-        if query:
-            queryset = queryset.filter(title__icontains=query)
-        return queryset
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['queryset'] = self.get_queryset()
-        return context
+def search_bar(request):
+    if request.method == 'GET':
+        searched = request.GET.get("q")
+        query = Post.objects.filter(title__icontains=searched)
+        search_cat = Category.objects.all()
+        return render(request, "blog/search.html", {'query': query, 'search_cat': search_cat})

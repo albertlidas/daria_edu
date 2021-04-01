@@ -5,8 +5,18 @@
 {% endblock %}
 
 {% block content %}
-<div class="art_body">
+ {% for item in category %}
+            <div class="menu_bar">
+                <div class = "categories">
+                <a href="{{ item.get_absolute_url }}">{{ item }}</a>
+                </div>
+            </div>
+        {% endfor %}
+
+
+
     {% for art in all_posts_list %}
+<div class="art_body">
        <div>
         <h3>{{ art.title }}</h3>
         <p>{{ art.article|striptags|truncatechars:300 }}</p>

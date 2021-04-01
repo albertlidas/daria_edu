@@ -5,5 +5,31 @@
 {% endblock %}
 
 {% block content %}
-{{ queryset }}
-% endblock %}
+
+{% for item in search_cat %}
+            <div class="menu_bar">
+                <div class = "categories">
+                <a href="{{ item.get_absolute_url }}">{{ item }}</a>
+                </div>
+            </div>
+        {% endfor %}
+
+
+       {% for i in query %}
+<div class="art_body">
+       <div>
+        <h3>{{ i.title }}</h3>
+        <p>{{ i.article|striptags|truncatechars:300 }}</p>
+
+
+        </div>
+        <a href="{% url 'post_detail' i.id %}">Read more...</a>
+
+        {% empty %}
+
+    <div class="art_body">Nothing has been found</div>
+
+</div>
+        {% endfor %}
+
+{% endblock %}
