@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, reverse, render, redirect
 from django.views.generic.edit import FormMixin
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 class HomeView(ListView):
     model = Post
@@ -107,5 +108,7 @@ def delete_post(request, pk):
         if form.is_valid():
             post.delete()
             return redirect('post_list')
+    else:
+        form = PostDeleteForm(instance=post)
         return render(request, 'blog/post_delete.html', {'form': form, 'post': post})
 
