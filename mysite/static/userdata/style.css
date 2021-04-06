@@ -55,19 +55,11 @@ button:hover {
 
 .avatar {
     position: relative;
-<<<<<<< Updated upstream
-    margin-left: 55%;
+    margin-left: 67%;
     margin-top: -25%;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    height: 150px;
-    width: 150px;
-=======
-    margin-left: 65%;
-    margin-top: -20%;
     border-radius: 150px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
->>>>>>> Stashed changes
+
 }
 
 label {
