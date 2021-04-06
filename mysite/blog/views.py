@@ -107,5 +107,5 @@ def delete_post(request, pk):
         if form.is_valid():
             post.delete()
             return redirect('post_list')
-    return render(request, 'blog/post_delete.html', {'form': form, 'post': post})
+        return render(request, 'blog/post_delete.html', {'form': form, 'post': post})
 
