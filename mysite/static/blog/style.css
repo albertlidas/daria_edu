@@ -188,7 +188,7 @@ a:hover .inner {
 
 textarea {
     height: 10%;
-    weight: 200%;
+    width: 200%;
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 4px;

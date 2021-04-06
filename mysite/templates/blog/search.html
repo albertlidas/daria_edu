@@ -1,35 +1,38 @@
 {% extends 'blog/base.html' %}
 
+
 {% block title %}
     Search
 {% endblock %}
 
 {% block content %}
 
-{% for item in search_cat %}
+{% block menu %}
+    <div>
+        {% for n in category_search %}
             <div class="menu_bar">
                 <div class = "categories">
-                <a href="{{ item.get_absolute_url }}">{{ item }}</a>
+                <a href="{{ n.get_absolute_url }}">{{ n }}</a>
                 </div>
             </div>
         {% endfor %}
-
-
-       {% for i in query %}
+            </div>
+{% endblock %}
+    {% if result %}
+        <h2>You are seaching for "{{ searched }}"</h2>
 <div class="art_body">
-       <div>
-        <h3>{{ i.title }}</h3>
-        <p>{{ i.article|striptags|truncatechars:300 }}</p>
-
-
-        </div>
-        <a href="{% url 'post_detail' i.id %}">Read more...</a>
-
-        {% empty %}
-
-    <div class="art_body">Nothing has been found</div>
-
+            {% for i in result %}
+                <div>
+                <h3>{{ i.title }}</h3>
+                <p>{{ i.article|striptags|truncatechars:300 }}</p>
+                </div>
+                <a href="{% url 'post_detail' i.id %}">Read more...</a>
+            {% endfor %}
+    {% else %}
+    <div class="art_body">
+        <p>None of results</p>
+    </div>
+    {% endif %}
 </div>
-        {% endfor %}
 
 {% endblock %}

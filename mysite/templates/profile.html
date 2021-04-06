@@ -6,13 +6,15 @@
 
 {% block content %}
 
-<a href="{% url 'post_list' %}" style="text-decoration:none">← Return to the home page</a>
 <div class="profile">
+    <a href="{% url 'post_list' %}" style="text-decoration: none;">&larr; Back To The Home Page</a><br/>
     <h3>User Profile</h3>
-    <b>Name:</b>@{{ user.username }}<br>
-    <b>Email:</b>{{ user.email }}<br>
+    <b>Name:</b>@{{ user.username }}<br/>
+    <b>Email:</b>{{ user.email }}<br/>
+        {% if user.profile.img %}
+            <img class="avatar" src="{{ user.profile.img.url }}" width="170" height="170">
+        {% endif %}
 
-    <img class="avatar" src="{{ user.profile.img.url }}">
 
     <h3>Change your profile</h3>
     <form method="post" enctype="multipart/form-data">

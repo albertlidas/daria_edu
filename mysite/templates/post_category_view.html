@@ -5,14 +5,17 @@
 
 {% block content %}
 
-{% for item in category_view %}
+{% block menu %}
+    <div>
+        {% for item in category_details_view %}
             <div class="menu_bar">
                 <div class = "categories">
                 <a href="{{ item.get_absolute_url }}">{{ item }}</a>
                 </div>
             </div>
         {% endfor %}
-
+    </div>
+{% endblock %}
     {% for single in art_category %}
     <div class="art_body">
     <h3>{{ single.title }}</h3>

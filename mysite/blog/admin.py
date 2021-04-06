@@ -1,7 +1,10 @@
 from django.contrib import admin
 from .models import *
 
-admin.site.register(Author)
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = ('user', 'user_id')
+
+admin.site.register(Author, AuthorAdmin)
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('commentator', 'post', 'created')

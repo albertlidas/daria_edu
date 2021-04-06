@@ -9,8 +9,11 @@
 
     <div class="page-header">
         <span class="search" >
-    <form action="{% url 'search' %}" method="get">
-        <input type="search" name="q" placeholder="search">
+
+    <form method="get" action="{% url 'search' %}">
+        {% csrf_token %}
+        <input name="q" type="search" placeholder="search">
+
         <input type="submit" value="Submit">
     </form>
 </span>
@@ -34,9 +37,6 @@
 </div>
 
     </div>
-
-
-
 
     {% block content %}{% endblock %}
 

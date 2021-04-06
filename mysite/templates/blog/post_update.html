@@ -5,7 +5,7 @@ Adding the new article
 {% block content %}
 <div class="add_post">
   <h1>Add the new article</h1>
-  <form action="{% url 'post_update' %}" method="post">
+  <form action="{% url 'post_update' post.pk %}" method="post">
     {% csrf_token %}
     {% for field in form %}
       <p>

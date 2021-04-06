@@ -1,14 +1,14 @@
-from .models import Post, Category, Comment
-from .forms import CommentForm
-from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
-from django.shortcuts import get_object_or_404, reverse, render
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from .models import *
+from .forms import *
+from django.views.generic import DetailView, ListView
+from django.shortcuts import get_object_or_404, reverse, render, redirect
 from django.views.generic.edit import FormMixin
-
+from django.http import HttpResponseRedirect, HttpResponseNotFound
+from django.contrib.auth.decorators import login_required
 
 class HomeView(ListView):
     model = Post
-    template_name = 'base.html'
+    template_name = 'post_list.html'
     context_object_name = 'all_posts_list'
     paginate_by = 1
 
@@ -31,9 +31,9 @@ class PostDetailView(FormMixin, DetailView):
         post = get_object_or_404(Post, id=self.kwargs['pk'])
         context['single_article'] = Post.objects.filter(id=post.pk)
         context['comments'] = Comment.objects.filter(post=self.object)
-        context['comments_count'] = Comment.objects.filter(post=self.object).count()
+        context['comments_sum'] = Comment.objects.filter(post=self.object).count()
         context['comment_form'] = CommentForm()
-        context['category_view_detail'] = Category.objects.all()
+        context['category_details'] = Category.objects.all()
         return context
 
     def post(self, request, *args, **kwargs):
@@ -52,38 +52,6 @@ class PostDetailView(FormMixin, DetailView):
         return super().form_valid(comment_form)
 
 
-class PostCreateView(LoginRequiredMixin, CreateView):
-    model = Post
-    fields = ['category', 'author', 'title', 'article']
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
-
-class UpdatePostView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Post
-    fields = ['category', 'author', 'title', 'article']
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user.username
-        return super().form_valid(form)
-
-    def test_func(self):
-        post = self.get_object()
-        if self.request.user.username == post.author:
-            return True
-        return False
-
-class DeletePostView (LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = Post
-    success_url = '/'
-
-    def test_func(self):
-        post = self.get_object()
-        if self.request.user == post.author:
-            return True
-        return False
-
 class CategoryView(ListView):
     model = Post
     template_name = 'post_category_view.html'
@@ -91,13 +59,53 @@ class CategoryView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['art_category'] = Post.objects.filter(category=self.kwargs['pk'])
-        context['category_view'] = Category.objects.all()
+        context['category_details_view'] = Category.objects.all()
         return context
 
 
 def search_bar(request):
-    if request.method == 'GET':
-        searched = request.GET.get("q")
-        query = Post.objects.filter(title__icontains=searched)
-        search_cat = Category.objects.all()
-        return render(request, "blog/search.html", {'query': query, 'search_cat': search_cat})
+    category_search = Category.objects.all()
+    if request.method == "GET":
+        searched = request.GET.get('q')
+        result = Post.objects.filter(title__icontains=searched).values()
+    return render(request, 'blog/search.html', {'result': result, 'searched': searched, 'category_search': category_search})
+
+
+@login_required
+def add_post(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            form = PostForm(request.POST)
+            form.save()
+            return redirect('post_list')
+        else:
+            form = PostForm()
+    return render(request, 'blog/post_form.html', {"form": form})
+
+
+@login_required
+def edit_post(request, pk):
+    author = get_object_or_404(Author, user=request.user)
+    post = get_object_or_404(Post, pk=pk, author=author)
+
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('post_detail', args=[pk]))
+    else:
+        form = PostForm(instance=post)
+        return render(request, 'blog/post_update.html', {'form': form, 'post': post})
+
+
+@login_required
+def delete_post(request, pk):
+    author = get_object_or_404(Author, user=request.user)
+    post = get_object_or_404(Post, pk=pk, author=author)
+    if request.method == "POST":
+        form = PostDeleteForm(request.POST, instance=post)
+        if form.is_valid():
+            post.delete()
+            return redirect('post_list')
+    return render(request, 'blog/post_delete.html', {'form': form, 'post': post})
+

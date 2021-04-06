@@ -5,38 +5,42 @@
     {% endfor %}
 {% endblock %}
 
-{% block menu %}
-
-{% endblock %}
-
 {% block content %}
-
-{% for item in category_view_detail %}
+{% block menu %}
+    <div>
+        {% for item in category_details %}
             <div class="menu_bar">
                 <div class = "categories">
                 <a href="{{ item.get_absolute_url }}">{{ item }}</a>
                 </div>
             </div>
         {% endfor %}
+    </div>
+{% endblock %}
+
 
     {% for posts in single_article %}
         <div class="art_body">
             <img class="author-avatar" style="width: 100px; height: 100px;" src="{{ user.profile.img.url }}">
             <p class="author-name">{{ post.author }}</p>
-            <a href="{% url 'post_update' posts.id %}">Update</a>
-            <a href="{% url 'post_delete' posts.id %}">Delete</a>
+            <a href="{% url 'post_update' post.id %}">Update</a>
+            <a href="{% url 'post_delete' post.id %}">Delete</a>
                 <h3>{{ posts.title }}</h3>
                 <p>{{ posts.article }}</p>
 
  <div class="comment_block">
-     {% if comments %}
-        <p>Total comments number is {{ comments_count }}</p>
-     {% else %}
-     <p>There are no comments yet</p>
 
+
+     {% if comments_sum > 0 %}
+   Total comments number is {{ comments_sum }}
+     {% else %}
+     There are no comments yet
      {% endif %}
 
-                    {% for comment in comments %}
+
+
+        {% for comment in comments %}
+
 
                     <hr style="height:2px; color:white;">
                                 <p>{{ comment.content}}</p>

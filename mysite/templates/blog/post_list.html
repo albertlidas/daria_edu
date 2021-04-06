@@ -5,7 +5,13 @@
 {% endblock %}
 
 {% block content %}
- {% for item in category %}
+
+
+
+ {% block menu %}
+    <div>
+        {% for item in category %}
+
             <div class="menu_bar">
                 <div class = "categories">
                 <a href="{{ item.get_absolute_url }}">{{ item }}</a>
@@ -13,6 +19,8 @@
             </div>
         {% endfor %}
 
+    </div>
+{% endblock %}
 
 
     {% for art in all_posts_list %}
@@ -49,4 +57,3 @@
    </div>
 
 {% endblock %}
-

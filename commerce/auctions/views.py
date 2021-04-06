@@ -3,7 +3,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-
+from .models import *
 from .models import User
 
 
@@ -61,3 +61,36 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "auctions/register.html")
+
+def categories(request):
+    l = Category.objects.all().values()
+    return render(request, "auctions/categories.html", {
+        "listings": l
+    })
+
+def create_post(request):
+    if request.method == "POST":
+
+        if not request.user.is_authenticated:
+            return render(request, "auctions/create.html", {"message": "Please log in to publish the post"})
+
+        title = request.POST['title']
+        description = request.POST['description']
+        img_url = request.POST['img_url']
+        category = Category.objects.get(category_name=request.POST['category'])
+        user = request.user
+
+        post = Post.objects.create(title=title,
+                                   category=category,
+                                   description=description,
+                                   img_url=img_url,
+                                   user=user)
+        post.save()
+        return HttpResponseRedirect(reverse('index'))
+
+    else:
+
+        return render(request, 'auctions/create.html')
+
+
+

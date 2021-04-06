@@ -4,11 +4,15 @@ Deleting the article
 {% endblock %}
 {% block content %}
 <div class="add_post">
-  <h1>Are you sure you would like to delete the article "{{ article.title }}" from the web-site?</h1>
+  <h1>Are you sure you would like to delete this article?</h1>
   <form action="" method="post">
     {% csrf_token %}
+    {{ form }}
     <button type="submit">Yes, I am sure</button>
-    <a href="{% url 'post_detail' object.id %}">No, back to the post list</a>
+    </br>
+    </br>
+    </br>
+    <a href="{% url 'post_list' %}" style="text-decoration: none;">&larr; Back To The Home Page</a>
   </form>
 </div>
 {% endblock %}
